@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="mmd dark — Resume. A dark green terminal-inspired portfolio with compiler vibes." />
+
+  <title>mmd dark — Resume</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css.css" />
+
+  <!-- Monospace fallback stack (system fonts only, no external) -->
+  <style>
+    :root { --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body>
+  <!-- Terminal-style loading screen -->
+  <div id="boot-screen" aria-hidden="true">
+    <div class="boot-inner">
+      <div class="boot-line">[BOOT] initializing compiler kernel...</div>
+      <div class="boot-line">[LINK] resolving symbols...</div>
+      <div class="boot-line">[ALLOC] mapping memory pages...</div>
+      <div class="boot-line">[I/O] starting TTY...</div>
+      <div class="boot-progress">
+        <div class="boot-bar"><span class="boot-fill"></span></div>
+        <div class="boot-status">loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background canvas for subtle binary rain -->
+  <canvas id="binary-bg" aria-hidden="true"></canvas>
+
+  <!-- Page wrapper -->
+  <div id="app">
+
+    <!-- Hero -->
+    <header class="hero section" id="hero" role="banner">
+      <div class="hero-content container">
+        <h1 class="hero-title"><span class="caret">></span> mmd dark</h1>
+        <p class="hero-quote">
+          “Programs are not just instructions for machines—they are crystallized thoughts, compiled into causality.”
+        </p>
+
+        <!-- Animated terminal typing effect -->
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="led led-red"></span>
+            <span class="led led-yellow"></span>
+            <span class="led led-green"></span>
+            <span class="tty-label">/dev/tty0</span>
+          </div>
+          <div class="terminal-body">
+            <span class="prompt">$</span>
+            <span id="typed" class="typed"></span>
+            <span class="cursor">█</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About -->
+    <section class="about section observe" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title" class="section-title">About me</h2>
+        <p class="about-text">
+          I treat programming as a dialect of thought. Compilers are translators between human intention and machine execution, mapping symbols into structured causality. Memory is not just storage—it's a landscape where ideas persist, mutate, and interlink. Data structures give those ideas shape: stacks for discipline, graphs for relationships, and arrays for continuity. Logic binds this all together, ensuring that every branch, loop, and pointer stands accountable to truth.
+        </p>
+        <p class="about-text">
+          In a world of abstractions, I move deliberately between levels: from registers and cache lines to algorithms and APIs. Each layer is a lens; clarity comes from knowing which lens to apply, and when to discard it. Elegance is not ornament—it's the absence of unnecessary complexity. Robust systems emerge when conceptual models align with implementation details, and code becomes an honest artifact of thought.
+        </p>
+      </div>
+    </section>
+
+    <!-- Programming languages -->
+    <section class="languages section observe" id="languages" aria-labelledby="languages-title">
+      <div class="container">
+        <h2 id="languages-title" class="section-title">Programming languages</h2>
+
+        <div class="grid">
+          <!-- C++ card (with simple logo-like SVG) -->
+          <article class="card lang-card" data-lang="cpp" tabindex="0" aria-label="C++">
+            <div class="card-head">
+              <div class="svg-wrap" aria-hidden="true">
+                <!-- Minimal C++ emblem: C with ++ in a hex shield -->
+                <svg width="92" height="92" viewBox="0 0 92 92">
+                  <defs>
+                    <linearGradient id="g" x1="0" x2="1">
+                      <stop offset="0" stop-color="var(--accent)" />
+                      <stop offset="1" stop-color="var(--accent-dim)" />
+                    </linearGradient>
+                  </defs>
+                  <polygon points="46,4 80,23 80,69 46,88 12,69 12,23" fill="#0b140f" stroke="var(--accent)" stroke-width="2"/>
+                  <text x="30" y="55" font-size="32" font-family="monospace" fill="url(#g)">C</text>
+                  <text x="51" y="40" font-size="18" font-family="monospace" fill="var(--accent)">+</text>
+                  <text x="60" y="52" font-size="18" font-family="monospace" fill="var(--accent)">+</text>
+                </svg>
+              </div>
+              <h3 class="card-title">C++</h3>
+            </div>
+            <p class="card-body">
+              Performance as philosophy. Determinism, RAII, zero-cost abstractions. Templates as meta-logic, and memory as terrain.
+            </p>
+          </article>
+
+          <!-- C# -->
+          <article class="card lang-card" data-lang="csharp" tabindex="0" aria-label="C#">
+            <div class="card-head">
+              <div class="svg-wrap" aria-hidden="true">
+                <svg width="92" height="92" viewBox="0 0 92 92">
+                  <circle cx="46" cy="46" r="36" fill="#0b140f" stroke="var(--accent)" stroke-width="2"/>
+                  <text x="28" y="56" font-size="32" font-family="monospace" fill="var(--accent)">C</text>
+                  <text x="55" y="40" font-size="20" font-family="monospace" fill="var(--accent)">#</text>
+                </svg>
+              </div>
+              <h3 class="card-title">C#</h3>
+            </div>
+            <p class="card-body">
+              Managed precision. LINQ as fluent data flow, async as structure, and tooling that shapes reliable systems.
+            </p>
+          </article>
+
+          <!-- Python -->
+          <article class="card lang-card" data-lang="python" tabindex="0" aria-label="Python">
+            <div class="card-head">
+              <div class="svg-wrap" aria-hidden="true">
+                <svg width="92" height="92" viewBox="0 0 92 92">
+                  <rect x="12" y="12" width="68" height="68" rx="10" fill="#0b140f" stroke="var(--accent)" stroke-width="2"/>
+                  <text x="24" y="58" font-size="28" font-family="monospace" fill="var(--accent)">Py</text>
+                </svg>
+              </div>
+              <h3 class="card-title">Python</h3>
+            </div>
+            <p class="card-body">
+              Expressiveness first. Rapid prototyping, clean syntax, and ecosystems where ideas crystallize quickly.
+            </p>
+          </article>
+
+          <!-- JavaScript -->
+          <article class="card lang-card" data-lang="javascript" tabindex="0" aria-label="JavaScript">
+            <div class="card-head">
+              <div class="svg-wrap" aria-hidden="true">
+                <svg width="92" height="92" viewBox="0 0 92 92">
+                  <polygon points="12,20 80,20 72,80 20,80" fill="#0b140f" stroke="var(--accent)" stroke-width="2"/>
+                  <text x="28" y="58" font-size="28" font-family="monospace" fill="var(--accent)">JS</text>
+                </svg>
+              </div>
+              <h3 class="card-title">JavaScript</h3>
+            </div>
+            <p class="card-body">
+              The living runtime. Events, closures, and rendering pipelines that translate state into experience.
+            </p>
+          </article>
+
+          <!-- GDScript -->
+          <article class="card lang-card" data-lang="gdscript" tabindex="0" aria-label="GDScript">
+            <div class="card-head">
+              <div class="svg-wrap" aria-hidden="true">
+                <svg width="92" height="92" viewBox="0 0 92 92">
+                  <path d="M46 8 L70 26 L70 66 L46 84 L22 66 L22 26 Z" fill="#0b140f" stroke="var(--accent)" stroke-width="2"/>
+                  <text x="26" y="56" font-size="22" font-family="monospace" fill="var(--accent)">GD</text>
+                </svg>
+              </div>
+              <h3 class="card-title">GDScript</h3>
+            </div>
+            <p class="card-body">
+              Game-native scripting. Signals, nodes, and scenes—logic embodied as spatial hierarchy and behavior.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools & software as system modules/layers -->
+    <section class="tools section observe" id="tools" aria-labelledby="tools-title">
+      <div class="container">
+        <h2 id="tools-title" class="section-title">Tools and software</h2>
+
+        <div class="modules">
+          <div class="module">
+            <div class="module-title">Blender</div>
+            <div class="module-desc">Geometry nodes, topology discipline, and procedural thinking for visual systems.</div>
+          </div>
+          <div class="module">
+            <div class="module-title">Linux</div>
+            <div class="module-desc">Composable tooling, shells and pipes, transparent processes—control as a philosophy.</div>
+          </div>
+          <div class="module">
+            <div class="module-title">Windows</div>
+            <div class="module-desc">Pragmatic compatibility, subsystem bridges, and solid desktop ergonomics.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profiles in terminal path style -->
+    <section class="profiles section observe" id="profiles" aria-labelledby="profiles-title">
+      <div class="container">
+        <h2 id="profiles-title" class="section-title">Profiles</h2>
+        <ul class="paths">
+          <li>
+            <code>$ cd /profiles/github && open mmddark000</code>
+            <a class="path-link" href="https://github.com/mmddark000" target="_blank" rel="noopener">github.com/mmddark000</a>
+          </li>
+          <li>
+            <code>$ cd /profiles/leetcode && open mmddark000</code>
+            <a class="path-link" href="https://leetcode.com/u/mmddark000/" target="_blank" rel="noopener">leetcode.com/u/mmddark000</a>
+          </li>
+          <li>
+            <code>$ cd /profiles/codewars && open mmd_dark000</code>
+            <a class="path-link" href="https://www.codewars.com/users/mmd_dark000" target="_blank" rel="noopener">codewars.com/users/mmd_dark000</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Philosophy article -->
+    <section class="philosophy section observe" id="philosophy" aria-labelledby="philosophy-title">
+      <div class="container">
+        <h2 id="philosophy-title" class="section-title">Programming philosophy</h2>
+        <article class="essay">
+          <h3 class="essay-subtitle">Compilers</h3>
+          <p>
+            A compiler is a contract between intention and execution. It enforces rigor on the author, converting ambiguity into constraints. Parsing is not only syntax disambiguation; it is the transformation of thought into structure—trees that embody choices, scopes that maintain locality, and bindings that resolve meaning. Optimization does not “make code faster” so much as it reconciles ideas with the physical reality of machines: latency, locality, and the economy of operations.
+          </p>
+
+          <h3 class="essay-subtitle">Abstraction</h3>
+          <p>
+            Abstraction is the art of hiding details without losing essence. Good abstractions are transparent: they make the right things easy and the wrong things impossible. A leaky abstraction is not a failure by itself—it is a reminder that reality remains. To design is to measure the permeability of your layers: which truths pass through, which guarantees hold, and when you must descend for clarity.
+          </p>
+
+          <h3 class="essay-subtitle">Data structures</h3>
+          <p>
+            Data structures are topologies of thought. A queue suggests fairness; a stack suggests discipline. Trees encode lineage and decision, graphs encode relationship and flow. The choice is ethical as much as technical: your structure will shape behavior, performance, and the very questions your system can ask of itself.
+          </p>
+
+          <h3 class="essay-subtitle">Programming as thinking</h3>
+          <p>
+            Programming is a practice of attention. A well-written function is a paragraph with purpose. Naming is storytelling; tests are arguments; debugging is inquiry. The best codebases are libraries of clear thoughts, compiled daily, revised mercilessly, and read with care. In the end, programs run on machines, but they live in minds.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer section" id="contact" role="contentinfo">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <div class="footer-title">Contact</div>
+          <!-- Telegram channel (not centered, stays aligned left) -->
+          <div class="footer-item"><span class="caret">></span> Telegram channel: <strong>@Translated_by_Mamed</strong></div>
+        </div>
+        <div class="footer-right">
+          <div class="footer-item">© <span id="year"></span> mmd dark</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="cod.js"></script>
+</body>
+</html>
